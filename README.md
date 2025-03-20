@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BrainTumorFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.3.
@@ -25,3 +26,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+=======
+# Brain-tumor-Detection
+Final year Project of brain tumor detection using mri images
+>>>>>>> 8ca57470fad38c81a39b7a1bc227e9c55840b1f0

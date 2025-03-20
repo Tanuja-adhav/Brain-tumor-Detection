@@ -1,0 +1,12 @@
+<div class="appointment-box">
+    <h2>Book Appointment</h2>
+    <form [formGroup]="book" (ngSubmit)="handleSubmit()">
+        <input type="text" placeholder="Name" formControlName="name">
+        <input type="date" formControlName="date">
+        <select formControlName="option">
+            <option>Doctor A</option>
+            <option>Doctor B</option>
+        </select>
+        <button type="submit">Book Appointment</button>
+    </form>
+</div>

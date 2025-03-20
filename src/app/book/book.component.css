@@ -1,0 +1,10 @@
+.appointment-box input,
+.appointment-box select,
+.appointment-box button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

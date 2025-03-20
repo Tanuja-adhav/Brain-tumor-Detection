@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'brain-tumor-frontend';
+ 
+
 }

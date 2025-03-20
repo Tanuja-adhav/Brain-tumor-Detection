@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,8 +7,8 @@
 </head>
 <body>
     <header>
-        <h1>Healthcare</h1>
         <nav>
+          <h1>Healthcare</h1>
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Book Appointment</a></li>
@@ -29,13 +29,13 @@
     <section class="features">
         <div class="feature">
             <img src="assets\doctor.png" alt="Doctor">
-            <p>MRI</p>
-            <button>Home</button>
+            <p>Register</p>
+            <button [routerLink]="['register']">Register</button>
         </div>
         <div class="feature">
             <img src="assets\stethoscope.png" alt="Login" >
-            <p>Login</p>
-            <button [routerLink]="['login']">Login</button>
+            <p>Login &nbsp; &nbsp;</p>
+            <button [routerLink]="['login']">Login Here</button>
         </div>
         <div class="feature">
             <img src="assets\mri.png" alt="MRI Report Check">
@@ -44,8 +44,8 @@
         </div>
         <div class="feature">
             <img src="assets\appointment.png" alt="MRI Report Appointment">
-            <p>MRI Report Appointment</p>
-            <button>Upload</button>
+            <p>Book</p>
+            <button>Appointment</button>
         </div>
     </section>
     <div class="appointment-box">
@@ -57,20 +57,20 @@
               <option>Doctor A</option>
               <option>Doctor B</option>
           </select>
-          <button type="submit">Upload</button>
+          <button type="submit">Book Appointment</button>
       </form>
   </div>
 </body>
-<footer>
+<footer style="align-items: center;padding: auto;">
   <div class="footer">
     <div  style="width: 50%; margin-left: 40px;">
+      <p style="color: white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Our Social Media Accounts</p>
+
     <p><a  target="_blank" href="https://www.instagram.com/brain_tumour_research/" style="color: white;">Follow us on Instagram</a> </p>
     <p><a  target="_blank" href="https://www.facebook.com/groups/1640369692663244" style="color: white;">Follow us on Facebook</a> </p>
     <p><a  target="_blank" href="https://www.youtube.com/@apollohospitalsdelhi " style="color: white;">Follow us on YouTube</a></p>
     <p><a  target="_blank" href="https://braintumor.org/" style="color: white;">Brain Tumor Organization</a></p>
     <p><a target="_blank" href="https://www.abta.org/" style="color: white;">American Brain Tumor Association</a></p>
-    <p><a target="_blank" href="https://www.ninds.nih.gov/health-information/disorders/brain-and-spinal-cord-tumors" style="color: white; ">
-      NIH - Brain and Spinal Cord Tumors</a></p>
     <p><a target="_blank" href="https://www.nature.com/articles/s41598-024-74731-8" style="color: white;">Classification of Brain Tumor</a></p>
     <p><a target="_blank" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11031674/" style="color: white;">Technologies Related to Brain Tumor</a></p>
      
@@ -93,15 +93,11 @@
     <p><a target="_blank" href="https://www.eka.care/services/list-of-government-health-schemes-in-india" style="color:white;">EKA India </a></p>
     <p><a target="_blank" href="https://ihatepsm.com/blog/list-national-health-programs-along-brief-description-each" style="color: white;">National Health Programs in  India </a></p>
     <p><a target="_blank" href="https://www.insightsonindia.com/social-justice/issues-related-to-health-sector/problems-pertaining-to-healthcare-sector-in-india/central-government-schemes/" style="color: white;">Central Goverment Schemes </a></p>
+    <p><a target="_blank" href="https://www.ninds.nih.gov/health-information/disorders/brain-and-spinal-cord-tumors" style="color: white; ">
+      NIH - Brain and Spinal Cord Tumors</a></p>
   </div>
 </div>
 <p style="color: white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;text-align: center;margin-top: 10px;">All CopyRights&copy; are Reserved 2025</p>
 
   </footer>
-</html> -->
-<router-outlet></router-outlet>
-
-
-
-
-
+</html>

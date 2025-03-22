@@ -12,7 +12,7 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Book Appointment</a></li>
-                <li><a href="#">MRI Report Check</a></li>
+                <li><a [routerLink]="['CheckReport']">MRI Report Check</a></li>
                 <li><a [routerLink]="['login']">Login</a></li>
                 <li><a [routerLink]="['register']">Register</a></li>
             </ul>
@@ -40,7 +40,7 @@
         <div class="feature">
             <img src="assets\mri.png" alt="MRI Report Check">
             <p>MRI Report Check</p>
-            <button>Upload</button>
+            <button [routerLink]="['CheckReport']">Upload</button>
         </div>
         <div class="feature">
             <img src="assets\appointment.png" alt="MRI Report Appointment">

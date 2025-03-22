@@ -1,0 +1,11 @@
+<div class="feature">
+    <img src="assets\mri.png" alt="MRI Report Check">
+    <h2>Upload MRI Image for Tumor Detection</h2>
+    <input type="file" (change)="onFileSelected($event)">
+    <p *ngIf="prediction">Prediction: {{ prediction }}</p>
+    <br>
+    <!-- <button [routerLink]="['/CheckReport']">Upload</button> -->
+</div>
+
+  
+

@@ -12,25 +12,26 @@ export class ProfileComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router,private httpClient:HttpClient) {}
   ngOnInit() {
-    const email = localStorage.getItem('email'); // ✅ Retrieve stored userId
-    console.log(localStorage.getItem('email'));
-    if (!email) {
+    const storedUser = localStorage.getItem('user'); // ✅ Get user object
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      const userId = user.userId; // ✅ Extract userId
+      console.log("Logged-in userId:", userId);
+  
+      this.httpClient.get(`http://localhost:8080/${userId}`).subscribe( // ✅ Use correct URL
+        (response) => {
+          console.log("User Profile Data:", response);
+          this.user = response;
+        },
+        (error) => {
+          console.error('Error fetching user profile:', error);
+          alert("Error fetching profile. Please try again.");
+        }
+      );
+    } else {
       alert("You are not logged in!");
       this.router.navigate(['/login']);
-      return;
     }
-  
-    // Fetch user profile based on userId
-    this.httpClient.get(`http://localhost:8080/${email}`).subscribe(
-      (response) => {
-        console.log("User Profile Data:", response);
-        this.user = response;
-      },
-      (error) => {
-        console.error('Error fetching user profile:', error);
-        alert("Error fetching profile. Please try again.");
-      }
-    );
   }
   
   

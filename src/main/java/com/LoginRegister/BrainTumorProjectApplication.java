@@ -3,7 +3,7 @@ package com.LoginRegister;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.Image1")
 public class BrainTumorProjectApplication {
 
 	public static void main(String[] args) {

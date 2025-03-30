@@ -1,24 +1,22 @@
 package com.Image1;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class ImageUploadService {
-    private final String ML_API_URL = "http://127.0.0.1:5000/predict"; 
+    private final String ML_API_URL = "http://127.0.0.1:5000/predict"; // Flask API URL
     private final String UPLOAD_DIR = "uploads/";
 
     public String saveImageAndSendToML(MultipartFile file) throws Exception {
-        // Ensure upload directory exists
         File directory = new File(UPLOAD_DIR);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -31,30 +29,21 @@ public class ImageUploadService {
             fos.write(file.getBytes());
         }
 
-        // Check if ML model files exist
-        Resource modelResource = new ClassPathResource("rf_brain_tumor.pkl");
-        Resource scalerResource = new ClassPathResource("scaler.pkl");
-
-        if (!modelResource.exists() || !scalerResource.exists()) {
-            return "Error: ML model files are missing.";
-        }
-
-        // Send image path to Flask
         return sendImageToMLModel(savedFile);
     }
 
-    private String sendImageToMLModel(File file) throws Exception {
+    public String sendImageToMLModel(File file) throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON); // ✅ Ensure JSON Content-Type
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA); // ✅ Correct Content-Type
 
-        // Create JSON payload with file path
-        Map<String, String> jsonPayload = new HashMap<>();
-        jsonPayload.put("path", file.getAbsolutePath());
+        // ✅ Correctly wrap the file
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", new FileSystemResource(file)); 
 
-        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(jsonPayload, headers);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        // Send JSON to Flask
+        // ✅ Make sure the URL is correct
         ResponseEntity<String> response = restTemplate.exchange(
             ML_API_URL, HttpMethod.POST, requestEntity, String.class
         );

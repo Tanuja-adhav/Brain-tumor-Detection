@@ -31,10 +31,12 @@ public class ImageController {
         try {
             System.out.println("📤 Uploading file: " + file.getOriginalFilename());
 
-            // Process the image and get prediction from ML model
-            String mlResponse = imageUploadService.saveImageAndSendToML(file);
+            // Process image & send it to ML model
+            String filePath = imageUploadService.saveImageLocally(file);
+            String mlResponse = imageUploadService.sendImageToMLModel(filePath);
 
             response.put("message", "File processed successfully");
+            response.put("filePath", filePath);  // ✅ Include file path
             response.put("prediction", mlResponse);
 
             return ResponseEntity.ok(response);

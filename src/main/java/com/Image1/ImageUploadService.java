@@ -14,9 +14,9 @@ import java.io.FileOutputStream;
 @Service
 public class ImageUploadService {
     private final String ML_API_URL = "http://127.0.0.1:5000/predict"; // Flask API URL
-    private final String UPLOAD_DIR = "uploads/";
+    private final String UPLOAD_DIR = "C:/Users/admin/Downloads/brain_tumor_project/uploads/";
 
-    public String saveImageAndSendToML(MultipartFile file) throws Exception {
+    public String saveImageLocally(MultipartFile file) throws Exception {
         File directory = new File(UPLOAD_DIR);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -29,21 +29,20 @@ public class ImageUploadService {
             fos.write(file.getBytes());
         }
 
-        return sendImageToMLModel(savedFile);
+        return filePath; // ✅ Return file path
     }
 
-    public String sendImageToMLModel(File file) throws Exception {
+    public String sendImageToMLModel(String filePath) throws Exception {
+        File file = new File(filePath);
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA); // ✅ Correct Content-Type
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        // ✅ Correctly wrap the file
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", new FileSystemResource(file)); 
+        body.add("file", new FileSystemResource(file));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        // ✅ Make sure the URL is correct
         ResponseEntity<String> response = restTemplate.exchange(
             ML_API_URL, HttpMethod.POST, requestEntity, String.class
         );

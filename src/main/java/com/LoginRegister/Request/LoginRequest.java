@@ -3,9 +3,7 @@ package com.LoginRegister.Request;
 public class LoginRequest {
 	private String userId;
 	private String password;
-	
-	
-	
+		
 	public LoginRequest(String userId, String password) {
 		super();
 		this.userId = userId;

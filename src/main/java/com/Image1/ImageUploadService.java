@@ -3,50 +3,71 @@ package com.Image1;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class ImageUploadService {
-    private final String ML_API_URL = "http://127.0.0.1:5000/predict"; // Flask API URL
-    private final String UPLOAD_DIR = "C:/Users/admin/Downloads/brain_tumor_project/uploads/";
 
+    private static final String ML_API_URL = "http://127.0.0.1:5000/predict";
+    private static final String UPLOAD_DIR = "uploads/";
+
+    /* ---------- Save file locally ---------- */
     public String saveImageLocally(MultipartFile file) throws Exception {
-        File directory = new File(UPLOAD_DIR);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        File dir = new File(UPLOAD_DIR);
+        if (!dir.exists()) dir.mkdirs();
 
-        // Save file locally
-        String filePath = UPLOAD_DIR + file.getOriginalFilename();
-        File savedFile = new File(filePath);
-        try (FileOutputStream fos = new FileOutputStream(savedFile)) {
+        String uniqueName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String filePath = UPLOAD_DIR + uniqueName;
+
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
             fos.write(file.getBytes());
         }
-
-        return filePath; // ✅ Return file path
+        return filePath;
     }
 
+    /* ---------- Send image to FastAPI ---------- */
     public String sendImageToMLModel(String filePath) throws Exception {
-        File file = new File(filePath);
+        File imageFile = new File(filePath);
+        if (!imageFile.exists()) throw new Exception("File not found: " + filePath);
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", new FileSystemResource(file));
+        body.add("file", new FileSystemResource(imageFile));
 
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        HttpEntity<MultiValueMap<String, Object>> request =
+                new HttpEntity<>(body, headers);
+
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<String> response = restTemplate.exchange(
-            ML_API_URL, HttpMethod.POST, requestEntity, String.class
-        );
+        /* ---- 1️⃣  try JSON map ---- */
+        try {
+            ResponseEntity<Map> jsonResp =
+                    restTemplate.postForEntity(ML_API_URL, request, Map.class);
 
-        return response.getBody();
+            Map<?,?> map = jsonResp.getBody();
+            if (map != null && map.get("prediction") != null) {
+                return map.get("prediction").toString();
+            }
+        } catch (Exception ignore) {
+            // Fall through to plain-text parse
+        }
+
+        /* ---- 2️⃣  plain-string fallback ---- */
+        ResponseEntity<String> txtResp =
+                restTemplate.postForEntity(ML_API_URL, request, String.class);
+
+        System.out.println("🔍 Raw FastAPI response: " + txtResp.getBody());
+        return txtResp.getBody() != null ? txtResp.getBody() : "No prediction";
     }
 }

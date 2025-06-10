@@ -9,26 +9,25 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class RegisterComponent {
   public register = new FormGroup({
-      email: new FormControl(''),
-      name : new FormControl(''),
-      password: new FormControl('')
-    });
+    email: new FormControl(''),
+    name: new FormControl(''),
+    password: new FormControl('')
+  });
   
-    constructor(private httpClient: HttpClient) {}
-  
-    public handleSubmit() {
-      console.log(this.register.value);
-      
-      this.httpClient.post<boolean>('http://localhost:8080/addUser', this.register.value).subscribe(
-        (response) => { 
-          // console.log('Response:', response);
-          alert("Registration Successfully!!");
-        },
-        (error) => {
-          // console.error('Error:', error);
+  constructor(private httpClient: HttpClient) {}
+
+  public handleSubmit() {
+    this.httpClient.post<any>('http://localhost:8080/api/addUser', this.register.value).subscribe(
+      (response) => {
+        alert("Registration Successfully!!");
+      },
+      (error) => {
+        if (error.status === 400 && error.error?.message) {
+          alert(error.error.message); // "User already exists" handled here
+        } else {
           alert("Something went wrong. Please try again.");
         }
-      );
-    }
-    
+      }
+    );
+  }
 }

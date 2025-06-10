@@ -11,7 +11,7 @@
           <h1>Healthcare</h1>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Book Appointment</a></li>
+                <li><a [routerLink]="['/appointment']">Book Appointment</a></li>
                 <li><a [routerLink]="['CheckReport']">MRI Report Check</a></li>
                 <li><a [routerLink]="['login']">Login</a></li>
                 <li><a [routerLink]="['register']">Register</a></li>
@@ -45,30 +45,10 @@
         <div class="feature">
             <img src="assets\appointment.png" alt="MRI Report Appointment">
             <p>Book</p>
-            <button>Appointment</button>
+            <button [routerLink]="['/appointment']">Appointment</button>
         </div>
     </section>
-   <div class="appointment-box">
-    <h2>Book Appointment</h2>
-    <form>
-      <input type="text" placeholder="Patient Name" name="patientName" required>
-      <input type="email" placeholder="Email" name="email" required>
-      <input type="tel" placeholder="Phone Number" name="phone" required>
-      <select name="doctorName" required>
-        <option value="">Select Doctor</option>
-        <option value="Dr. John Smith">Dr. John Smith</option>
-        <option value="Dr. Emily Johnson">Dr. Emily Johnson</option>
-        <option value="Dr. David Lee">Dr. David Lee</option>
-      </select>
-      <input type="text" name="appointmentDate" id="appointmentDate" readonly>
-      <button type="submit">Book Appointment</button>
-    </form>
-  </div>
-  <script>
-    const now = new Date();
-    const formattedDateTime = now.toISOString().slice(0, 16); 
-    document.getElementById("appointmentDate").value = formattedDateTime;
-  </script>
+    
 </body>
 <footer style="align-items: center;padding: auto;">
   <div class="footer">

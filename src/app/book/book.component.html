@@ -1,4 +1,4 @@
-<div class="appointment-box">
+<!-- <div class="appointment-box">
     <h2>Book Appointment</h2>
     <form [formGroup]="book" (ngSubmit)="handleSubmit()">
         <input type="text" placeholder="Name" formControlName="name">
@@ -9,4 +9,20 @@
         </select>
         <button type="submit">Book Appointment</button>
     </form>
-</div>
+</div> -->
+<div class="appointment-box">
+    <h2>Book Appointment</h2>
+    <form>
+      <input type="text" placeholder="Patient Name" name="patientName" required>
+      <input type="email" placeholder="Email" name="email" required>
+      <input type="tel" placeholder="Phone Number" name="phone" required>
+      <input type="text" placeholder="Doctor Name" name="doctorName" required>
+      <input type="datetime-local" name="appointmentDate" required>
+      <select name="status">
+        <option value="Pending" selected>Pending</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+      <button type="submit">Book Appointment</button>
+    </form>
+  </div>

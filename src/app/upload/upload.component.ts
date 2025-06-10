@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { UploadService } from '../upload.service';
-import { MlService } from '../ml.service';
 
 @Component({
   selector: 'app-upload',
@@ -8,22 +7,44 @@ import { MlService } from '../ml.service';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent {
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
   prediction: string | null = null;
 
-  constructor(private mlService: MlService) {}
+  constructor(private uploadService: UploadService) {}
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.mlService.uploadImage(file).subscribe(
-        (response) => {
-          this.prediction = response.prediction;
-        },
-        (error) => {
-          console.error('Error uploading file:', error);
-          this.prediction = 'Error processing image';
-        }
-      );
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
     }
   }
+
+  onUpload(): void {
+    if (!this.selectedFile) {
+      alert("❌ Please select an image first!");
+      return;
+    }
+
+    this.uploadService.uploadFile(this.selectedFile).subscribe({
+      next: (prediction: string) => {
+       this.prediction = `Tumor Type: ${prediction}`;
+
+      },
+      error: (err) => {
+        console.error("❌ Error:", err);
+        this.prediction = "Error processing image.";
+      }
+    });
+  }
 }
+
+
+

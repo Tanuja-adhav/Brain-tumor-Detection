@@ -12,6 +12,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BookComponent } from './book/book.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UploadComponent } from './upload/upload.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 
 @NgModule({
@@ -21,13 +24,17 @@ import { UploadComponent } from './upload/upload.component';
     UploadComponent,
     RegisterComponent,
     HomeComponent,
-    BookComponent
+    BookComponent,
+    ProfileComponent,
+    AppointmentComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

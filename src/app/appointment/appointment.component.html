@@ -1,0 +1,22 @@
+<div class="appointment-box">
+  <h2>Book Appointment</h2>
+  <form (ngSubmit)="bookAppointment()" #appointmentForm="ngForm">
+    
+    <input type="text" name="patientName" [(ngModel)]="appointment.patientName" placeholder="Patient Name" required #patientName="ngModel" />
+    <div *ngIf="patientName.invalid && patientName.touched" style="color: red;">Patient name is required</div>
+
+    <input type="email" name="email" [(ngModel)]="appointment.email" placeholder="Email" required #email="ngModel" />
+    <div *ngIf="email.invalid && email.touched" style="color: red;">Valid email is required</div>
+
+    <input type="tel" name="phone" [(ngModel)]="appointment.phone" placeholder="Phone Number" required #phone="ngModel" />
+    <div *ngIf="phone.invalid && phone.touched" style="color: red;">Phone number is required</div>
+
+    <input type="text" name="doctorName" [(ngModel)]="appointment.doctorName" placeholder="Doctor Name" required #doctorName="ngModel" />
+    <div *ngIf="doctorName.invalid && doctorName.touched" style="color: red;">Doctor name is required</div>
+
+    <input type="datetime-local" name="appointmentDate" [(ngModel)]="appointment.appointmentDate" required #appointmentDate="ngModel" />
+    <div *ngIf="appointmentDate.invalid && appointmentDate.touched" style="color: red;">Appointment date is required</div>
+
+    <button type="submit" [disabled]="appointmentForm.invalid">Book Appointment</button>
+  </form>
+</div>

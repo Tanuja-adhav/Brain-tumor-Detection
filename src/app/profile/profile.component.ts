@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -10,17 +10,15 @@ import { HttpClient } from '@angular/common/http';
 export class ProfileComponent implements OnInit {
   user: any = {};
 
-  constructor(private userService: UserService, private router: Router,private httpClient:HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
+
   ngOnInit() {
-    const storedUser = localStorage.getItem('user'); // ✅ Get user object
+    const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
-      const userId = user.userId; // ✅ Extract userId
-      console.log("Logged-in userId:", userId);
-  
-      this.httpClient.get(`http://localhost:8080/${userId}`).subscribe( // ✅ Use correct URL
+      const userId = user.userId;
+      this.httpClient.get(`http://localhost:8080/api/${userId}`).subscribe(
         (response) => {
-          console.log("User Profile Data:", response);
           this.user = response;
         },
         (error) => {
@@ -34,10 +32,9 @@ export class ProfileComponent implements OnInit {
     }
   }
   
-  
+
   logout() {
-    localStorage.removeItem('email'); // Clear user session
-    this.router.navigate(['/login']); // Redirect to login page
+    localStorage.removeItem('user');  // Clear user session
+    this.router.navigate(['/login']);  // Redirect to login page
   }
 }
-

@@ -1,4 +1,4 @@
-<div class="profile-container">
+<!-- <div class="profile-container">
     <h2>User Profile</h2>
     
     <div *ngIf="user.name; else notFound">
@@ -7,6 +7,23 @@
       
       <p><strong>Name:</strong> {{ user.name }}</p>
       <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+  
+    <ng-template #notFound>
+      <p class="error">User not found.</p>
+    </ng-template>
+  
+    <button (click)="logout()">Logout</button>
+  </div>
+   -->
+   <div class="profile-container">
+    <h2>User Profile</h2>
+  
+    <div *ngIf="user.name; else notFound">
+  
+      <p><strong>Name:</strong> {{ user.name }}</p>
+      <p><strong>User ID:</strong> {{ user.email }}</p>
+
     </div>
   
     <ng-template #notFound>

@@ -1,11 +1,21 @@
-<div class="feature">
-    <img src="assets\mri.png" alt="MRI Report Check">
-    <h2>Upload MRI Image for Tumor Detection</h2>
-    <input type="file" (change)="onFileSelected($event)">
-    <p *ngIf="prediction">Prediction: {{ prediction }}</p>
-    <br>
-    <!-- <button [routerLink]="['/CheckReport']">Upload</button> -->
+<div class="upload-container">
+  <h2 class="title">🧠 Upload MRI Image for Brain Tumor Detection</h2>
+
+  <div class="upload-section">
+    <label class="file-label">
+      <input type="file" (change)="onFileSelected($event)" hidden />
+      <span class="file-select">Choose MRI Image</span>
+    </label>
+
+    <div *ngIf="imagePreview" class="preview-container">
+      <img [src]="imagePreview" alt="MRI Preview" class="preview-img" />
+    </div>
+
+    <button (click)="onUpload()" class="upload-btn">Upload</button>
+  </div>
+
+  <div *ngIf="prediction" class="result-card">
+    <h3 class="result-title">🧠 MRI Analysis Result</h3>
+    <p class="result-text">{{ prediction }}</p>
+  </div>
 </div>
-
-  
-

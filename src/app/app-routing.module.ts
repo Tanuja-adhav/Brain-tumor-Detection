@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UploadComponent } from './upload/upload.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 const routes: Routes = [
   {
@@ -19,10 +20,13 @@ const routes: Routes = [
     path:'home',component:AppComponent
   },
   {
-        path:'profile',component:ProfileComponent
+    path:'profile',component:ProfileComponent
   },
   {
     path:'CheckReport',component:UploadComponent
+  },
+  {
+    path:'appointment',component:AppointmentComponent
   },
   {
      path:'home',
@@ -37,6 +41,8 @@ const routes: Routes = [
         path:'register',component:RegisterComponent
       },{
         path:'CheckReport',component:UploadComponent
+      },{
+        path:'appointment',component:AppointmentComponent
       }
     ]
   },

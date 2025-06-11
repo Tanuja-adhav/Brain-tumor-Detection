@@ -14,8 +14,21 @@
     <button (click)="onUpload()" class="upload-btn">Upload</button>
   </div>
 
-  <div *ngIf="prediction" class="result-card">
-    <h3 class="result-title">🧠 MRI Analysis Result</h3>
-    <p class="result-text">{{ prediction }}</p>
+  <div *ngIf="prediction" class="result-card" id="report-content">
+    <h3 class="result-title">🧠 Brain MRI Diagnostic Report</h3>
+    <div class="report-content">
+      <p><strong>📝 Tumor Detection:</strong> {{ prediction.tumor_detected }}</p>
+      <p><strong>🧬 Tumor Type:</strong> {{ prediction.tumor_type.toUpperCase() }}</p>
+      <p><strong>🎯 Confidence:</strong> {{ prediction.confidence }}</p>
+      <p><strong>📍 Location:</strong> {{ prediction.location }}</p>
+      <p><strong>📏 Estimated Size:</strong> {{ prediction.estimated_size }}</p>
+      <hr />
+      <p class="note">
+        📌 This is an ML-generated report. Please consult a medical professional for a clinical diagnosis.
+      </p>
+    </div>
+    <button *ngIf="prediction" (click)="downloadReport()" class="upload-btn" style="margin-top: 10px;">
+  📄 Download Report as PDF
+</button>
   </div>
 </div>

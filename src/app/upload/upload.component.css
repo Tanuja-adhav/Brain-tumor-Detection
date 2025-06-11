@@ -76,3 +76,21 @@
   font-size: 18px;
   font-weight: bold;
 }
+.report-content {
+  text-align: left;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.report-content p {
+  margin: 6px 0;
+}
+
+.note {
+  font-style: italic;
+  font-size: 14px;
+  color: #b00020;
+  margin-top: 12px;
+}
